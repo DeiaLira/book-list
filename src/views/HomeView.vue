@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="books">
+    <ul v-for="book in books" :key="book.title">
+      <li>{{ book.title }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
-  name: 'HomeView',
+
+  name: 'homePage',
   components: {
-    HelloWorld
+    
+  },
+
+  computed: mapState ([
+    'books'
+  ]),
+
+  methods: {
+
   }
 }
 </script>
