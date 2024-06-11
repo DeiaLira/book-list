@@ -3,7 +3,7 @@
   <h3 class="mainTitle">Books List</h3>
   <section class="booksList">
     <div v-for="book in books" :key="book.title" class="books">
-      <img :src="book.imageLinks.thumbnail" class="imageBook img-thumbnail" alt="...">
+      <router-link class="routerLink" to="/book"><img @click="dataBook(book)" :src="book.imageLinks.thumbnail" class="imageBook img-thumbnail" alt="..."></router-link>
           <!--<div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">{{ book.title }}</h5>
@@ -30,13 +30,18 @@ export default {
   },
 
   computed: mapState ([
-    'books'
+    'books',
+    'viewBook'
   ]),
 
   methods: {
-
+    dataBook (book) {
+      this.$store.dispatch('dataBook', book);
+    }
+  
   }
 }
+
 </script>
 
 <style lang="sass">

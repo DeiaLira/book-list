@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    books: []
+    books: [],
+    viewBook: []
   },
 
   getters: {
@@ -12,7 +13,17 @@ export default createStore({
   mutations: {
     loadBooks(state, books) {
       state.books = books;
-      console.log(books)
+    },
+
+    dataBook(state, book) {
+      state.viewBook = book;
+      localStorage.setItem("viewBook", JSON.stringify(state.viewBook));
+    },
+
+    loadBook({commit}) {
+      if(localStorage.getItem("viewBook")) {
+        commit('viewBook', JSON.parse(localStorage.getItem("viewBook")));
+      }
     },
   },
 
@@ -31,7 +42,11 @@ export default createStore({
         .catch(error => {
           console.error("Error fetching books:", error);
         });
-    }
+    },
+
+    dataBook({commit}, book) {
+      commit('dataBook', book);
+    },
   },
   modules: {
   }
