@@ -17,6 +17,7 @@ export default {
 
   created() {
     this.$store.dispatch('loadBooks');
+    this.$store.dispatch('loadLibrary');
   }
 }
 

@@ -4,7 +4,8 @@ import axios from 'axios';
 export default createStore({
   state: {
     books: [],
-    viewBook: []
+    viewBook: [],
+    libraryBooks: []
   },
 
   getters: {
@@ -17,14 +18,24 @@ export default createStore({
 
     dataBook(state, book) {
       state.viewBook = book;
-      localStorage.setItem("viewBook", JSON.stringify(state.viewBook));
     },
 
-    loadBook({commit}) {
-      if(localStorage.getItem("viewBook")) {
-        commit('viewBook', JSON.parse(localStorage.getItem("viewBook")));
-      }
+    addToLibrary(state, viewBook) {
+      state.libraryBooks.push(viewBook);
+      localStorage.setItem("libraryBooks", JSON.stringify(state.libraryBooks));
     },
+
+    removeLibrary(state, bookId) {
+      //console.log(alert('Deseja excluir o produto do carrinho?'))
+      const updateLibrary = state.libraryBooks.filter(item => bookId != item.id);
+      state.libraryBooks = updateLibrary;
+      localStorage.setItem("libraryBooks", JSON.stringify(state.libraryBooks));
+    },
+
+    loadLibrary(state, book) {
+      state.libraryBooks = book;
+    },
+
   },
 
   actions: {
@@ -46,6 +57,21 @@ export default createStore({
 
     dataBook({commit}, book) {
       commit('dataBook', book);
+    },
+
+    addToLibrary({commit}, viewBook) {
+      commit('addToLibrary', viewBook);
+    },
+
+    removeLibrary({commit}, bookId) {
+      commit('removeLibrary', bookId);
+    },
+
+    loadLibrary({commit}) {
+      if(localStorage.getItem("libraryBooks")) {
+        commit('loadLibrary', JSON.parse(localStorage.getItem("libraryBooks")));
+      }
+      
     },
   },
   modules: {

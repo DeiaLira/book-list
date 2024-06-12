@@ -1,7 +1,7 @@
 <template>
 
     <h3 class="mainTitle">{{ viewBook.title }}</h3>
-    <section class="bookInfo">
+    <section class="bookInfo" :class="{inLibrary : isInLibrary(viewBook)}">
         <div class="mainImage">
             <img :src="viewBook.imageLinks.thumbnail" class="imageBook img-thumbnail" alt="...">
         </div>
@@ -13,34 +13,47 @@
             <p><strong>Description:</strong> {{ viewBook.description }}</p>
         </div>
         <div class="addLibrary">
-            <button type="button" class="btn btn-dark">Add to Library</button>
+            <button v-if="!isInLibrary(viewBook)" @click="addToLibrary(viewBook)" type="button" class="btn btn-dark">Add to Library</button>
+            <button v-if="isInLibrary(viewBook)" type="button" class="btn btn-danger" @click="removeLibrary(viewBook.id)">Remove from Library</button>
         </div>
     </section>
     
   
 </template>
   
-  <script>
+<script>
   import { mapState } from 'vuex';
   
   // @ is an alias to /src
   
   
-  export default {
+export default {
   
-    name: 'bookPage',
-    components: {
+  name: 'bookPage',
+  components: {
       
+  },
+  
+  computed: mapState ([
+    'viewBook', 'libraryBooks'
+  ]),
+  
+  methods: {  
+    addToLibrary(viewBook) {
+      this.$store.dispatch('addToLibrary', viewBook);
     },
-  
-    computed: mapState ([
-      'viewBook'
-    ]),
-  
-    methods: {  
         
+    removeLibrary(bookId) {
+      if (confirm('Deseja retirar o livro da biblioteca?')) {
+        this.$store.dispatch('removeLibrary', bookId);
+      }
+    },
+
+    isInLibrary(viewBook) {
+      return this.libraryBooks.find(item => item.id == viewBook.id);
     }
   }
+}
   
   </script>
   
