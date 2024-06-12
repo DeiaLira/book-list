@@ -1,7 +1,7 @@
 <template>
 
     <h3 class="mainTitle">{{ viewBook.title }}</h3>
-    <section class="bookInfo" :class="{inLibrary : isInLibrary(viewBook)}">
+    <section class="bookInfo">
         <div class="mainImage">
             <img :src="viewBook.imageLinks.thumbnail" class="imageBook img-thumbnail" alt="...">
         </div>
@@ -14,7 +14,7 @@
         </div>
         <div class="addLibrary">
             <button v-if="!isInLibrary(viewBook)" @click="addToLibrary(viewBook)" type="button" class="btn btn-dark">Add to Library</button>
-            <button v-if="isInLibrary(viewBook)" type="button" class="btn btn-danger" @click="removeLibrary(viewBook.id)">Remove from Library</button>
+            <button v-if="isInLibrary(viewBook)" type="button" class="btn btn-danger" @click="removeLibrary(viewBook.title)">Remove from Library</button>
         </div>
     </section>
     
@@ -42,16 +42,16 @@ export default {
     addToLibrary(viewBook) {
       this.$store.dispatch('addToLibrary', viewBook);
     },
-        
-    removeLibrary(bookId) {
-      if (confirm('Deseja retirar o livro da biblioteca?')) {
-        this.$store.dispatch('removeLibrary', bookId);
-      }
-    },
 
     isInLibrary(viewBook) {
-      return this.libraryBooks.find(item => item.id == viewBook.id);
-    }
+      return this.libraryBooks.find(item => item.title == viewBook.title);
+    },
+        
+    removeLibrary(bookTitle) {
+      if (confirm('Deseja retirar o livro da biblioteca?')) {
+        this.$store.dispatch('removeLibrary', bookTitle);
+      }
+    },
   }
 }
   

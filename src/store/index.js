@@ -25,9 +25,9 @@ export default createStore({
       localStorage.setItem("libraryBooks", JSON.stringify(state.libraryBooks));
     },
 
-    removeLibrary(state, bookId) {
+    removeLibrary(state, bookTitle) {
       //console.log(alert('Deseja excluir o produto do carrinho?'))
-      const updateLibrary = state.libraryBooks.filter(item => bookId != item.id);
+      const updateLibrary = state.libraryBooks.filter(item => bookTitle != item.title);
       state.libraryBooks = updateLibrary;
       localStorage.setItem("libraryBooks", JSON.stringify(state.libraryBooks));
     },
@@ -63,17 +63,18 @@ export default createStore({
       commit('addToLibrary', viewBook);
     },
 
-    removeLibrary({commit}, bookId) {
-      commit('removeLibrary', bookId);
-    },
-
     loadLibrary({commit}) {
       if(localStorage.getItem("libraryBooks")) {
         commit('loadLibrary', JSON.parse(localStorage.getItem("libraryBooks")));
       }
-      
     },
+
+    removeLibrary({commit}, bookTitle) {
+      commit('removeLibrary', bookTitle);
+    },
+      
   },
+
   modules: {
   }
 })
