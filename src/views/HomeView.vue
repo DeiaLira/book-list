@@ -88,7 +88,7 @@ h3
       color: white
       padding: .4rem
       width: 6rem
-      border-bottom-right-radius: 10%
+      border-bottom-right-radius: 50%
 
 .card-body-read 
   opacity: 0
