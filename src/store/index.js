@@ -5,7 +5,7 @@ export default createStore({
   state: {
     books: [],
     viewBook: [],
-    libraryBooks: []
+    libraryBooks: [],
   },
 
   getters: {
@@ -14,6 +14,9 @@ export default createStore({
   mutations: {
     loadBooks(state, books) {
       state.books = books;
+      for (let i = 0; i < books.length; i++) {
+        books[i].readBook = true;
+      }
     },
 
     dataBook(state, book) {
