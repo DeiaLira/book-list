@@ -15,7 +15,7 @@ export default createStore({
     loadBooks(state, books) {
       state.books = books;
       for (let i = 0; i < books.length; i++) {
-        books[i].readBook = true;
+        books[i].readBook = false;
       }
     },
 

@@ -16,6 +16,11 @@
             <button v-if="!isInLibrary(viewBook)" @click="addToLibrary(viewBook)" type="button" class="btn btn-dark">Add to Library</button>
             <button v-if="isInLibrary(viewBook)" type="button" class="btn btn-danger" @click="removeLibrary(viewBook.title)">Remove from Library</button>
         </div>
+        <div class="readingCompleted">
+          <button v-if="viewBook.readBook == false" @click="isRead(viewBook)" type="button" class="btn btn-secondary">Finish reading</button>
+          <button v-if="viewBook.readBook == true" @click="isRead(viewBook)" type="button" class="btn btn-success">Reading completed</button>
+        </div>
+        
     </section>
     
   
@@ -45,6 +50,10 @@ export default {
 
     isInLibrary(viewBook) {
       return this.libraryBooks.find(item => item.title == viewBook.title);
+    },
+
+    isRead(viewBook) {
+      return viewBook.readBook = !viewBook.readBook;
     },
         
     removeLibrary(bookTitle) {
@@ -81,6 +90,13 @@ h3
     padding: 1rem
 
 .addLibrary
+  display: flex
+  justify-content: center
+  margin: 2rem
+  .btn
+    width: 80%
+
+.readingCompleted
   display: flex
   justify-content: center
   margin: 2rem
