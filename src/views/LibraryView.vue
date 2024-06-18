@@ -1,6 +1,7 @@
 <template>
 
   <h3 class="mainTitle"><strong>My Library</strong></h3>
+  <bookProgress :libraryBooks="libraryBooks"/>
   <section class="booksList">
     <div class="info" v-if="libraryBooks.length == 0">
       <h5>No books in the library!</h5>
@@ -16,11 +17,11 @@
           </div>-->
     </div>
   </section>
-
 </template>
   
 <script>
   import { mapState } from 'vuex';
+  import bookProgress from '../components/bookProgress.vue';
   
   // @ is an alias to /src
   
@@ -29,7 +30,7 @@
   
     name: 'libraryPage',
     components: {
-      
+      bookProgress,
     },
   
     computed: mapState ([
@@ -39,7 +40,7 @@
     methods: {
       dataBook (book) {
       this.$store.dispatch('dataBook', book);
-    }
+    },
 
     }
   }
